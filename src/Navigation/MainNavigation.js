@@ -56,7 +56,7 @@ const MainNavigation = () => {
         name="ProfileStack"
         component={ProfileStack}
         options={{
-          title: user.username || 'Profile',
+          title: user && user.username || 'Profile',
           headerShown: true,
           tabBarIcon: ({ color }) => (<MaterialCommunityIcons name="emoticon-outline" color={color} size={36} />),
         }}
