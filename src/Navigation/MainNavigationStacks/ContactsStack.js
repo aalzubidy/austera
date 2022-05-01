@@ -10,8 +10,8 @@ const ContactsStack = () => {
         name="ListContacts"
         component={ListContacts}
         options={{
-          headerShown: false,
-          title: 'Contacts'
+          headerShown: true,
+          title: 'Connections'
         }}
       />
     </ContactsStackNav.Navigator>

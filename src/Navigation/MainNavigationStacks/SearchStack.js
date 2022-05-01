@@ -10,7 +10,7 @@ const SearchStack = () => {
         name="SearchPeople"
         component={SearchPeople}
         options={{
-          headerShown: false,
+          headerShown: true,
           title: 'Find People'
         }}
       />

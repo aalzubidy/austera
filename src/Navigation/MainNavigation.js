@@ -1,7 +1,5 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { useContext } from 'react/cjs/react.development';
-import { AuthContext } from '../Contexts/AuthContext';
 
 import HomeStack from './MainNavigationStacks/HomeStack';
 import SearchStack from './MainNavigationStacks/SearchStack';
@@ -11,8 +9,6 @@ import ProfileStack from './MainNavigationStacks/ProfileStack';
 const Tab = createBottomTabNavigator();
 
 const MainNavigation = () => {
-  const { user } = useContext(AuthContext);
-
   return (
     <Tab.Navigator initialRouteName="HomeStack"
       backBehavior='history'
@@ -30,7 +26,7 @@ const MainNavigation = () => {
         component={HomeStack}
         options={{
           title: 'Feed',
-          headerShown: true,
+          headerShown: false,
           tabBarIcon: ({ color }) => (<MaterialCommunityIcons name="newspaper" color={color} size={36} />),
         }}
       />
@@ -39,7 +35,7 @@ const MainNavigation = () => {
         component={SearchStack}
         options={{
           title: 'Find People',
-          headerShown: true,
+          headerShown: false,
           tabBarIcon: ({ color }) => (<MaterialCommunityIcons name="magnify" color={color} size={36} />),
         }}
       />
@@ -48,7 +44,7 @@ const MainNavigation = () => {
         component={ContactsStack}
         options={{
           title: 'Connections',
-          headerShown: true,
+          headerShown: false,
           tabBarIcon: ({ color }) => (<MaterialCommunityIcons name="account-group" color={color} size={36} />),
         }}
       />
@@ -56,8 +52,8 @@ const MainNavigation = () => {
         name="ProfileStack"
         component={ProfileStack}
         options={{
-          title: user && user.username || 'Profile',
-          headerShown: true,
+          title: 'Profile',
+          headerShown: false,
           tabBarIcon: ({ color }) => (<MaterialCommunityIcons name="emoticon-outline" color={color} size={36} />),
         }}
       />
