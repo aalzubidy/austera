@@ -1,13 +1,34 @@
 import { View, Text, TouchableOpacity, Linking } from 'react-native';
 import { Button, TextInput, Divider } from 'react-native-paper';
 import { StyleSheet } from 'react-native';
-import { useState } from 'react/cjs/react.development';
+import { useContext, useState } from 'react/cjs/react.development';
+import { AlertsContext } from '../../Contexts/AlertsContext';
+import { AuthActionsContext } from '../../Contexts/AuthContext';
 import MasterView from '../../Shared/MasterView';
 
 const Login = ({ navigation }) => {
+  // Settings
+  const { alertMsg } = useContext(AlertsContext);
+  const [registerLoading, setRegisterLoading] = useState(false);
+  const authActions = useContext(AuthActionsContext);
+  const [hidePassword, setHidePassword] = useState(true);
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loginLoading, setLoginLoading] = useState(false);
+
+  // Handle registeration
+  const handleLogin = async () => {
+    try {
+      setLoginLoading(true);
+
+      let results = '';
+      results = await authActions.login(email, password);
+    } catch (error) {
+      alertMsg('error', `Could not login :( ${error.message}`);
+      setLoginLoading(false);
+    }
+  };
 
   return (
     <MasterView>
@@ -26,8 +47,8 @@ const Login = ({ navigation }) => {
           placeholder='Password'
           value={password}
           onChangeText={text => setPassword(text)}
-          secureTextEntry
-          right={<TextInput.Icon name="eye" />}
+          secureTextEntry={hidePassword}
+          right={<TextInput.Icon name="eye" onPress={() => { setHidePassword(!hidePassword) }} />}
           mode='outlined'
           activeOutlineColor='#657386'
         />
@@ -37,7 +58,7 @@ const Login = ({ navigation }) => {
           <Text style={styles.forgotPassword}>Forgot Password ?</Text>
         </TouchableOpacity>
 
-        <Button style={styles.loginButton} icon="login" mode="contained" onPress={() => console.log('Pressed')} loading={loginLoading} >Login</Button>
+        <Button style={styles.loginButton} icon="login" mode="contained" onPress={handleLogin} loading={loginLoading} >Login</Button>
 
         <Divider style={styles.divider} />
 

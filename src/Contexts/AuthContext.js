@@ -1,7 +1,7 @@
 import { useState, createContext, useRef } from "react/cjs/react.development";
 import axios from 'axios';
 // import { MMKV } from 'react-native-mmkv'
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as SecureStore from 'expo-secure-store';
 import publicIP from 'react-native-public-ip';
 
 export const AuthContext = createContext();
@@ -49,27 +49,36 @@ export function AuthProvider(props) {
     scheduleRenewToken();
   };
 
-  // Set refresh token in asyncStorage
-  const setRefreshToken = (refreshToken) => {
-    AsyncStorage.setItem(refreshTokenAsyncKey, refreshToken);
+  // Set refresh token in SecureStore
+  const setRefreshToken = async (refreshToken) => {
+    try {
+      await SecureStore.setItemAsync(refreshTokenAsyncKey, refreshToken);
+    } catch (error) {
+      console.log('could not store refresh token');
+    }
   };
 
   // Delete token for logout
   const clearToken = () => {
     setToken(null);
     setUser(null);
-    AsyncStorage.removeItem(refreshTokenAsyncKey);
+    SecureStore.deleteItemAsync(refreshTokenAsyncKey);
     cancelRenewTokenSchedule();
   };
 
   //  Renew token by cookie
   const renewToken = async () => {
+    // SecureStore.deleteItemAsync(refreshTokenAsyncKey);
+    // return;
+
     if (!renewTokenInProgress) {
       try {
         setRenewTokenInProgress(true);
+        const refreshTokenStorage = await SecureStore.getItemAsync(refreshTokenAsyncKey);
+
         const renewTokenResponse = await axios.post(baseUrl + renewTokenUrl, {}, {
           headers: {
-            Cookie: `refresh_token=${await AsyncStorage.getItem(refreshTokenAsyncKey)}`
+            Cookie: `refresh_token=${refreshTokenStorage}`
           }
         });
 
@@ -117,7 +126,7 @@ export function AuthProvider(props) {
 
       if (loginResponse && loginResponse.data && loginResponse.data['data']) {
         setAccessToken(loginResponse.data['data']['accessToken']);
-        setRefreshToken(loginResponse.data['data']['accessToken']);
+        setRefreshToken(loginResponse.data['data']['refreshToken']);
         return (loginResponse.data['data']['accessToken']);
       } else {
         clearToken();
@@ -135,7 +144,7 @@ export function AuthProvider(props) {
       await axios.post(baseUrl + logoutUrl, {}, {
         headers: {
           token: accessToken,
-          Cookie: `refresh_token=${await AsyncStorage.getItem(refreshTokenAsyncKey)}`
+          Cookie: `refresh_token=${await SecureStore.getItemAsync(refreshTokenAsyncKey)}`
         }
       });
       clearToken();

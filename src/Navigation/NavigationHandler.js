@@ -1,28 +1,7 @@
-import { createStackNavigator } from '@react-navigation/stack';
 import { Text } from 'react-native-paper';
 import { useEffect, useState, useContext } from 'react/cjs/react.development';
 import { AuthContext, AuthActionsContext } from '../Contexts/AuthContext';
-import Login from '../Screens/Authentication/Login';
-import Register from '../Screens/Authentication/Register';
-
-const AuthStackNav = createStackNavigator();
-
-function AuthStack() {
-  return (
-    <AuthStackNav.Navigator>
-      <AuthStackNav.Screen
-        name="Login"
-        component={Login}
-        options={{ headerShown: false }}
-      />
-      <AuthStackNav.Screen
-        name="Register"
-        component={Register}
-        options={{ title: 'New Account' }}
-      />
-    </AuthStackNav.Navigator>
-  );
-}
+import AuthNavigation from './AuthNavigation';
 
 const NavigationHandler = () => {
   // Authorization
@@ -52,7 +31,7 @@ const NavigationHandler = () => {
   }, [token])
 
   return (
-    authenticated ? <Text>Hi, it's authenticated!</Text> : <AuthStack />
+    authenticated ? <Text>Hi, it's authenticated!</Text> : <AuthNavigation />
   )
 }
 
