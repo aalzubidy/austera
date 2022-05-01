@@ -71,7 +71,6 @@ const styles = StyleSheet.create({
   appName: {
     alignSelf: 'center',
     marginBottom: '20%',
-    // marginTop: '-20%',
     fontSize: 40,
     fontWeight: 'bold',
     letterSpacing: 4,
@@ -89,8 +88,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#0194F6'
   },
   divider: {
-    marginTop: 60,
-    marginBottom: 20,
+    marginTop: 40,
+    marginBottom: 10,
     marginLeft: 16,
     marginRight: 16,
   },
