@@ -6,7 +6,7 @@ const AuthStackNav = createStackNavigator();
 
 const AuthNavigation = () => {
   return (
-    <AuthStackNav.Navigator>
+    <AuthStackNav.Navigator initialRouteName='Login' >
       <AuthStackNav.Screen
         name="Login"
         component={Login}

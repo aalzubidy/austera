@@ -1,7 +1,7 @@
-import { Text } from 'react-native-paper';
 import { useEffect, useState, useContext } from 'react/cjs/react.development';
 import { AuthContext, AuthActionsContext } from '../Contexts/AuthContext';
 import AuthNavigation from './AuthNavigation';
+import MainNavigation from './MainNavigation';
 
 const NavigationHandler = () => {
   // Authorization
@@ -31,7 +31,7 @@ const NavigationHandler = () => {
   }, [token])
 
   return (
-    authenticated ? <Text>Hi, it's authenticated!</Text> : <AuthNavigation />
+    authenticated ? <MainNavigation /> : <AuthNavigation />
   )
 }
 

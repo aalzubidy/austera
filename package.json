@@ -9,12 +9,16 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "~1.15.0",
     "@react-native-masked-view/masked-view": "0.2.6",
+    "@react-navigation/bottom-tabs": "^6.3.1",
     "@react-navigation/native": "^6.0.10",
     "@react-navigation/stack": "^6.2.1",
     "axios": "^0.27.2",
     "expo": "~44.0.0",
     "expo-network": "~4.1.0",
+    "expo-secure-store": "~11.1.0",
+    "expo-splash-screen": "~0.14.1",
     "expo-status-bar": "~1.2.0",
     "expo-updates": "~0.11.7",
     "lottie-ios": "^3.2.3",
@@ -29,10 +33,7 @@
     "react-native-safe-area-context": "3.3.2",
     "react-native-screens": "~3.10.1",
     "react-native-vector-icons": "^9.1.0",
-    "react-native-web": "0.17.1",
-    "expo-splash-screen": "~0.14.1",
-    "@react-native-async-storage/async-storage": "~1.15.0",
-    "expo-secure-store": "~11.1.0"
+    "react-native-web": "0.17.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"

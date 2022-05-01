@@ -11,7 +11,6 @@ export const AuthActionsContext = createContext();
 export function AuthProvider(props) {
   // Dynamic
   const [token, setToken] = useState(null);
-  const [renewTokenInProgress, setRenewTokenInProgress] = useState(false);
   const [user, setUser] = useState(null);
 
   // Static
@@ -71,32 +70,26 @@ export function AuthProvider(props) {
     // SecureStore.deleteItemAsync(refreshTokenAsyncKey);
     // return;
 
-    if (!renewTokenInProgress) {
-      try {
-        setRenewTokenInProgress(true);
-        const refreshTokenStorage = await SecureStore.getItemAsync(refreshTokenAsyncKey);
+    try {
+      const refreshTokenStorage = await SecureStore.getItemAsync(refreshTokenAsyncKey);
 
-        const renewTokenResponse = await axios.post(baseUrl + renewTokenUrl, {}, {
-          headers: {
-            Cookie: `refresh_token=${refreshTokenStorage}`
-          }
-        });
-
-        if (renewTokenResponse && renewTokenResponse.data && renewTokenResponse.data['data']) {
-          await setAccessToken(renewTokenResponse.data['data']['accessToken']);
-          setRefreshToken(renewTokenResponse.data['data']['refreshToken']);
-          setRenewTokenInProgress(false);
-          return renewTokenResponse.data['data']['accessToken'];
-        } else {
-          setRenewTokenInProgress(false);
-          clearToken();
-          return false;
+      const renewTokenResponse = await axios.post(baseUrl + renewTokenUrl, {}, {
+        headers: {
+          Cookie: `refresh_token=${refreshTokenStorage}`
         }
-      } catch (error) {
-        setRenewTokenInProgress(false);
+      });
+
+      if (renewTokenResponse && renewTokenResponse.data && renewTokenResponse.data['data']) {
+        await setAccessToken(renewTokenResponse.data['data']['accessToken']);
+        setRefreshToken(renewTokenResponse.data['data']['refreshToken']);
+        return renewTokenResponse.data['data']['accessToken'];
+      } else {
         clearToken();
-        throw error;
+        return false;
       }
+    } catch (error) {
+      clearToken();
+      throw error;
     }
   };
 
