@@ -10,7 +10,7 @@ const Tab = createBottomTabNavigator();
 
 const MainNavigation = () => {
   return (
-    <Tab.Navigator initialRouteName="HomeStack"
+    <Tab.Navigator initialRouteName="ProfileStack"
       backBehavior='history'
       screenOptions={{
         tabBarShowLabel: false,
