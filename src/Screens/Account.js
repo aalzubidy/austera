@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, Image, Platform, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
 import MasterView from '../Shared/MasterView';
 import { Avatar, Button } from 'react-native-paper';
 import { AuthContext } from '../Contexts/AuthContext';
@@ -8,13 +8,18 @@ import FlipComponent from 'react-native-flip-component';
 import { Camera } from 'expo-camera';
 import * as MediaLibrary from 'expo-media-library';
 import * as FileSystem from 'expo-file-system';
+import * as ImagePicker from 'expo-image-picker';
+import API from '../API';
+import mime from "mime";
 
 const Account = ({ navigation }) => {
-  const { user } = useContext(AuthContext);
+  const { user, token } = useContext(AuthContext);
   const { alertMsg } = useContext(AlertsContext);
 
   const [avatarFound, setAvatarFound] = useState(false);
   const [avatarFlipped, setAvatarFlipped] = useState(false);
+
+  const [image, setImage] = useState(null);
 
   const userAvatarUrl = 'https://www.aalzubidy.com/img/ahmed-wa.jpg';
 
@@ -54,6 +59,40 @@ const Account = ({ navigation }) => {
       })
   }
 
+  const uploadAvatar = async () => {
+    try {
+      let result = await ImagePicker.launchImageLibraryAsync({
+        // mediaTypes: ImagePicker.MediaTypeOptions.All,
+        allowsMultipleSelection: false,
+        // allowsEditing: true,
+        // aspect: [4, 3],
+        quality: 0.5,
+      });
+
+      const uri = result.uri || null;
+
+      if (!result.cancelled && !uri) {
+        setImage(result.uri);
+        return true;
+      }
+
+      const formData = new FormData();
+      formData.append('avatar', {
+        uri,
+        type: mime.getType(uri),
+        name: uri.split("/").pop()
+      });
+
+      const { data } = await API.profiles.updateUserProfile(formData, token, { headers: { 'Content-Type': 'multipart/form-data' } });
+
+      if (data) {
+        alertMsg('success', 'Profile photo updated successfully!', null, 2000);
+      }
+    } catch (error) {
+      alertMsg('error', 'Could not update photo', error, 2000);
+    }
+  }
+
   useEffect(() => {
     checkImageURL(userAvatarUrl);
   }, [userAvatarUrl]);
@@ -73,7 +112,7 @@ const Account = ({ navigation }) => {
           }
           backView={
             <View>
-              <Button icon='upload'>Upload</Button>
+              <Button icon='upload' onPress={() => { uploadAvatar() }}>New Photo</Button>
               <Button icon='download' onPress={() => { downloadFile(userAvatarUrl) }}>Download</Button>
               <Button icon='keyboard-backspace' onPress={() => setAvatarFlipped(!avatarFlipped)}>Return</Button>
             </View>
