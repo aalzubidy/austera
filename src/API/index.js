@@ -2,9 +2,18 @@ import CustomAxios from "./CustomAxios";
 
 const API = {
   profiles: {
-    updateUserProfile: async (body, token = '', config = {}) => {
+    updateProfilePicture: async (body, token = '', config = {}) => {
       try {
         const response = await CustomAxios(token).patch('/users/avatar', body, config);
+        return response;
+      } catch (error) {
+        console.log(error);
+        throw error;
+      }
+    },
+    getProfilePicture: async (token) => {
+      try {
+        const response = await CustomAxios(token).get('/users/avatar');
         return response;
       } catch (error) {
         console.log(error);

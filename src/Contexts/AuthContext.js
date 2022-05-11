@@ -151,9 +151,9 @@ export function AuthProvider(props) {
   // Get user information
   const getUser = async (accessToken) => {
     try {
-      const userResponse = await axios.get(baseUrl + getUserUrl, { headers: { token: accessToken } });
-      if (userResponse.data) {
-        const newUser = userResponse.data.data;
+      const { data } = await axios.get(baseUrl + getUserUrl, { headers: { token: accessToken } });
+      if (data) {
+        const newUser = data.data;
         if (newUser && newUser.email && newUser.username) {
           setUser(newUser);
         } else {
@@ -196,7 +196,7 @@ export function AuthProvider(props) {
 
   return (
     <AuthContext.Provider value={{ token, user }}>
-      <AuthActionsContext.Provider value={{ getToken, login, logout, registerUser, renewToken }}>
+      <AuthActionsContext.Provider value={{ getToken, login, logout, registerUser, renewToken, getUser }}>
         {props.children}
       </AuthActionsContext.Provider>
     </AuthContext.Provider>

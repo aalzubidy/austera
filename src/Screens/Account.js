@@ -12,28 +12,31 @@ import * as ImagePicker from 'expo-image-picker';
 import API from '../API';
 import mime from "mime";
 
+const baseURL = 'http://192.168.0.155:3030';
+
 const Account = ({ navigation }) => {
   const { user, token } = useContext(AuthContext);
   const { alertMsg } = useContext(AlertsContext);
 
-  const [avatarFound, setAvatarFound] = useState(false);
+  const [userAvatarUrl, setUserAvatarUrl] = useState(false);
   const [avatarFlipped, setAvatarFlipped] = useState(false);
 
-  const [image, setImage] = useState(null);
-
-  const userAvatarUrl = 'https://www.aalzubidy.com/img/ahmed-wa.jpg';
-
   const checkImageURL = (imageUrl) => {
+    if (!imageUrl) {
+      setUserAvatarUrl(null);
+      return;
+    }
+
     fetch(imageUrl)
       .then((res) => {
         if (res.status == 200) {
-          setAvatarFound(true);
+          setUserAvatarUrl(imageUrl);
         } else {
-          setAvatarFound(false);
+          setUserAvatarUrl(null);
         }
       })
       .catch((err) => {
-        setAvatarFound(false);
+        setUserAvatarUrl(null);
       });
   };
 
@@ -64,7 +67,7 @@ const Account = ({ navigation }) => {
       let result = await ImagePicker.launchImageLibraryAsync({
         // mediaTypes: ImagePicker.MediaTypeOptions.All,
         allowsMultipleSelection: false,
-        // allowsEditing: true,
+        allowsEditing: true,
         // aspect: [4, 3],
         quality: 0.5,
       });
@@ -72,7 +75,6 @@ const Account = ({ navigation }) => {
       const uri = result.uri || null;
 
       if (!result.cancelled && !uri) {
-        setImage(result.uri);
         return true;
       }
 
@@ -83,9 +85,10 @@ const Account = ({ navigation }) => {
         name: uri.split("/").pop()
       });
 
-      const { data } = await API.profiles.updateUserProfile(formData, token, { headers: { 'Content-Type': 'multipart/form-data' } });
+      const { data } = await API.profiles.updateProfilePicture(formData, token, { headers: { 'Content-Type': 'multipart/form-data' } });
 
       if (data) {
+        getUserAvatar();
         alertMsg('success', 'Profile photo updated successfully!', null, 2000);
       }
     } catch (error) {
@@ -93,9 +96,21 @@ const Account = ({ navigation }) => {
     }
   }
 
+  const getUserAvatar = async () => {
+    try {
+      const { data } = await API.profiles.getProfilePicture(token);
+      console.log(data);
+      if (data) {
+        checkImageURL(`${baseURL}${data}`)
+      }
+    } catch (error) {
+      console.log('no profile image');
+    }
+  }
+
   useEffect(() => {
-    checkImageURL(userAvatarUrl);
-  }, [userAvatarUrl]);
+    getUserAvatar();
+  }, [user]);
 
   return (
     <MasterView>
@@ -106,7 +121,7 @@ const Account = ({ navigation }) => {
           frontView={
             <View>
               <TouchableOpacity onPress={() => setAvatarFlipped(!avatarFlipped)}>
-                {avatarFound ? <Avatar.Image size={140} source={{ uri: `${userAvatarUrl}` }} /> : <Avatar.Icon size={140} icon='account' />}
+                {userAvatarUrl ? <Avatar.Image size={140} source={{ uri: `${userAvatarUrl}` }} /> : <Avatar.Icon size={140} icon='account' />}
               </TouchableOpacity>
             </View>
           }
