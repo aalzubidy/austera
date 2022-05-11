@@ -99,7 +99,7 @@ const Account = ({ navigation }) => {
   const getUserAvatar = async () => {
     try {
       const { data } = await API.profiles.getProfilePicture(token);
-      console.log(data);
+
       if (data) {
         checkImageURL(`${baseURL}${data}`)
       }
