@@ -19,6 +19,15 @@ const API = {
         console.log(error);
         throw error;
       }
+    },
+    getProfileInformation: async (token) => {
+      try {
+        const response = await CustomAxios(token).get('/users/information');
+        return response;
+      } catch (error) {
+        console.log(error);
+        throw error;
+      }
     }
   },
   getAllCompanies: async (token = '') => {
