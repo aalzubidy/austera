@@ -1,11 +1,9 @@
 import axios from 'axios';
-
-// const baseURL = process.env.REACT_APP_AUSTERA_BASE_URL;
-const baseURL = 'http://192.168.0.155:3030';
+import { AUSTERA_BASE_URL } from '../Configs/generalConfigs';
 
 const CustomAxios = (token) => {
   const defaultOptions = {
-    baseURL,
+    baseURL: AUSTERA_BASE_URL,
     headers: {
       token
     }

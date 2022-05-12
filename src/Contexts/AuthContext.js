@@ -3,6 +3,7 @@ import axios from 'axios';
 // import { MMKV } from 'react-native-mmkv'
 import * as SecureStore from 'expo-secure-store';
 import publicIP from 'react-native-public-ip';
+import { AUSTERA_BASE_URL } from '../Configs/generalConfigs';
 
 export const AuthContext = createContext();
 
@@ -18,7 +19,7 @@ export function AuthProvider(props) {
   const refreshTokenAsyncKey = 'austera-frontend-refresh-token';
 
   // Urls
-  const baseUrl = 'http://192.168.0.155:3030';
+  const baseUrl = AUSTERA_BASE_URL;
   const renewTokenUrl = '/renewTokenByCookie';
   const loginUrl = '/login';
   const logoutUrl = '/logoutByCookie';

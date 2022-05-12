@@ -3,7 +3,7 @@ import { Avatar } from 'react-native-paper';
 import { useContext } from 'react/cjs/react.development';
 import { StyleSheet } from 'react-native';
 import { AuthContext } from '../../Contexts/AuthContext';
-import Account from '../../Screens/Account';
+import Account from '../../Screens/Account/Account';
 import AccountSettings from '../../Screens/AccountSettings';
 import { TouchableOpacity } from 'react-native';
 
@@ -19,12 +19,13 @@ const ProfileStack = ({ navigation }) => {
         component={Account}
         options={{
           headerShown: true,
-          title: user && user.username || 'Profile',
-          headerRight: () => (
-            <TouchableOpacity onPress={() => navigation.navigate('AccountSettings')}>
-              <Avatar.Icon icon="cog" size={50} style={styles.searchButton} color='#0194F6' />
-            </TouchableOpacity>
-          )
+          title: 'My Profile',
+          // title: user && user.username || 'Profile',
+          // headerRight: () => (
+          //   <TouchableOpacity onPress={() => navigation.navigate('AccountSettings')}>
+          //     <Avatar.Icon icon="cog" size={50} style={styles.searchButton} color='#0194F6' />
+          //   </TouchableOpacity>
+          // )
         }}
       />
       <ProfileStackNav.Screen
