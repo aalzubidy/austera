@@ -1,6 +1,7 @@
 import { createContext, useState } from "react/cjs/react.development";
 import { Snackbar } from 'react-native-paper';
-import { Text, StyleSheet } from 'react-native';
+import { Text } from 'react-native';
+import { bootstrapColors } from "../Configs/colorConfigs";
 
 export const AlertsContext = createContext();
 
@@ -39,7 +40,7 @@ export function AlertsProvider(props) {
             label: 'X',
             onPress: handleClose,
           }}
-          style={styles[alertItem.type]}
+          style={{ backgroundColor: bootstrapColors[alertItem.type] }}
         >
           <Text>{alertItem.title}</Text>
         </Snackbar> : <Text></Text>
@@ -47,18 +48,3 @@ export function AlertsProvider(props) {
     </AlertsContext.Provider>
   )
 }
-
-const styles = StyleSheet.create({
-  error: {
-    backgroundColor: '#D32F2F',
-  },
-  warning: {
-    backgroundColor: '#ED6C02',
-  },
-  info: {
-    backgroundColor: '#0288D1',
-  },
-  success: {
-    backgroundColor: '#2E7D32',
-  },
-});

@@ -1,5 +1,6 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { bootstrapColors } from '../Configs/colorConfigs';
 
 import HomeStack from './MainNavigationStacks/HomeStack';
 import SearchStack from './MainNavigationStacks/SearchStack';
@@ -14,8 +15,8 @@ const MainNavigation = () => {
       backBehavior='history'
       screenOptions={{
         tabBarShowLabel: false,
-        tabBarActiveTintColor: '#0194F6',
-        tabBarInactiveTintColor: 'black',
+        tabBarActiveTintColor: bootstrapColors.primary,
+        tabBarInactiveTintColor: bootstrapColors.black,
         tabBarStyle: {
           height: 60,
           marginBottom: -20,
