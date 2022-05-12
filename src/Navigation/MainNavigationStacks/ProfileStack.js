@@ -4,7 +4,7 @@ import { useContext } from 'react/cjs/react.development';
 import { StyleSheet } from 'react-native';
 import { AuthContext } from '../../Contexts/AuthContext';
 import Account from '../../Screens/Account/Account';
-import AccountSettings from '../../Screens/Account/AccountSettings';
+import AccountSettings from '../../Screens/Account/Settings/AccountSettings';
 import { TouchableOpacity } from 'react-native';
 
 const ProfileStackNav = createStackNavigator();

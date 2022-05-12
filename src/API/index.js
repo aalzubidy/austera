@@ -28,6 +28,15 @@ const API = {
         console.log(error);
         throw error;
       }
+    },
+    updateProfileInformation: async (body, token) => {
+      try {
+        const response = await CustomAxios(token).patch('/users', body);
+        return response;
+      } catch (error) {
+        console.log(error);
+        throw error;
+      }
     }
   },
   getAllCompanies: async (token = '') => {

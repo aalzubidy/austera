@@ -1,21 +1,20 @@
 import { View, Text, Image, Platform, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
-import MasterView from '../../Shared/MasterView';
+import MasterView from '../../../Shared/MasterView';
 import { Avatar, Button, TextInput, Divider } from 'react-native-paper';
-import { AuthContext } from '../../Contexts/AuthContext';
-import { AlertsContext } from '../../Contexts/AlertsContext';
+import { AuthContext } from '../../../Contexts/AuthContext';
+import { AlertsContext } from '../../../Contexts/AlertsContext';
 import { useContext, useEffect, useState } from 'react/cjs/react.development';
 import FlipComponent from 'react-native-flip-component';
 import { Camera } from 'expo-camera';
 import * as MediaLibrary from 'expo-media-library';
 import * as FileSystem from 'expo-file-system';
 import * as ImagePicker from 'expo-image-picker';
-import API from '../../API';
+import API from '../../../API';
 import mime from "mime";
-import { AUSTERA_BASE_URL } from '../../Configs/generalConfigs';
-import { bootstrapColors } from '../../Configs/colorConfigs';
-import ProfilePicture from './ProfilePicture';
+import { AUSTERA_BASE_URL } from '../../../Configs/generalConfigs';
+import { bootstrapColors } from '../../../Configs/colorConfigs';
 
-const UpdateAccountInformation = () => {
+const DeleteAccount = () => {
   // Settings
   const { token } = useContext(AuthContext);
   const { alertMsg } = useContext(AlertsContext);
@@ -60,77 +59,6 @@ const UpdateAccountInformation = () => {
 
   return (
     <View style={styles.updateAccountInfo}>
-      <Text style={styles.title}>Update My Information</Text>
-
-      <TextInput style={styles.textFields}
-        placeholder='Username'
-        value={username}
-        onChangeText={text => setUsername(text)}
-        mode='outlined'
-        activeOutlineColor='#657386'
-      />
-
-      <TextInput style={styles.textFields}
-        placeholder='Email'
-        value={email}
-        onChangeText={text => setEmail(text)}
-        mode='outlined'
-        activeOutlineColor='#657386'
-      />
-
-      <TextInput style={styles.textFields}
-        placeholder='First name'
-        value={firstName}
-        onChangeText={text => setFirstName(text)}
-        mode='outlined'
-        activeOutlineColor='#657386'
-      />
-
-      <TextInput style={styles.textFields}
-        placeholder='Last name'
-        value={lastName}
-        onChangeText={text => setLastName(text)}
-        mode='outlined'
-        activeOutlineColor='#657386'
-      />
-
-      <TextInput style={styles.textFields}
-        placeholder='Mobile'
-        value={mobile}
-        onChangeText={text => setMobile(text)}
-        mode='outlined'
-        activeOutlineColor='#657386'
-      />
-
-      <Button compact color={bootstrapColors.primary} icon='pencil' onPress={() => { console.log('Clicked') }}>Update Information</Button>
-
-      <Divider style={styles.divider} />
-
-      <Text style={styles.title}>Change My Password</Text>
-
-      <TextInput style={styles.textFields}
-        placeholder='Current Password'
-        value={oldPassword}
-        onChangeText={text => setOldPassword(text)}
-        secureTextEntry={hideOldPassword}
-        right={<TextInput.Icon name="eye" onPress={() => { setHideOldPassword(!hideOldPassword) }} />}
-        mode='outlined'
-        activeOutlineColor='#657386'
-      />
-
-      <TextInput style={styles.textFields}
-        placeholder='New Password'
-        value={newPassword}
-        onChangeText={text => setNewPassword(text)}
-        secureTextEntry={hideNewPassword}
-        right={<TextInput.Icon name="eye" onPress={() => { setHideNewPassword(!hideNewPassword) }} />}
-        mode='outlined'
-        activeOutlineColor='#657386'
-      />
-
-      <Button compact color={bootstrapColors.primary} icon='content-save' onPress={() => { console.log('Clicked') }}>Change Password</Button>
-
-      <Divider style={styles.divider} />
       <Text style={styles.title}>Delete Account</Text>
 
       <TextInput style={styles.textFields}
@@ -148,7 +76,7 @@ const UpdateAccountInformation = () => {
   )
 };
 
-export default UpdateAccountInformation;
+export default DeleteAccount;
 
 const styles = StyleSheet.create({
   updateAccountInfo: {
