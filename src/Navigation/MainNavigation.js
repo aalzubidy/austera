@@ -18,7 +18,7 @@ const MainNavigation = () => {
         tabBarActiveTintColor: bootstrapColors.primary,
         tabBarInactiveTintColor: bootstrapColors.black,
         tabBarStyle: {
-          height: 60,
+          height: 40,
           marginBottom: -20,
         }
       }}>
@@ -28,7 +28,7 @@ const MainNavigation = () => {
         options={{
           title: 'Feed',
           headerShown: false,
-          tabBarIcon: ({ color }) => (<MaterialCommunityIcons name="newspaper" color={color} size={36} />),
+          tabBarIcon: ({ color }) => (<MaterialCommunityIcons name="newspaper" color={color} size={30} />),
         }}
       />
       <Tab.Screen
@@ -37,7 +37,7 @@ const MainNavigation = () => {
         options={{
           title: 'Find People',
           headerShown: false,
-          tabBarIcon: ({ color }) => (<MaterialCommunityIcons name="magnify" color={color} size={36} />),
+          tabBarIcon: ({ color }) => (<MaterialCommunityIcons name="magnify" color={color} size={30} />),
         }}
       />
       <Tab.Screen
@@ -46,7 +46,7 @@ const MainNavigation = () => {
         options={{
           title: 'Connections',
           headerShown: false,
-          tabBarIcon: ({ color }) => (<MaterialCommunityIcons name="account-group" color={color} size={36} />),
+          tabBarIcon: ({ color }) => (<MaterialCommunityIcons name="account-group" color={color} size={30} />),
         }}
       />
       <Tab.Screen
@@ -55,7 +55,7 @@ const MainNavigation = () => {
         options={{
           title: 'Profile',
           headerShown: false,
-          tabBarIcon: ({ color }) => (<MaterialCommunityIcons name="emoticon-outline" color={color} size={36} />),
+          tabBarIcon: ({ color }) => (<MaterialCommunityIcons name="emoticon-outline" color={color} size={30} />),
         }}
       />
     </Tab.Navigator>

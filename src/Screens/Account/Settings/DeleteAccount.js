@@ -67,8 +67,8 @@ const DeleteAccount = () => {
         onChangeText={text => setCurrentPassword(text)}
         secureTextEntry={hideCurrentPassword}
         right={<TextInput.Icon name="eye" onPress={() => { setHideCurrentPassword(!hideCurrentPassword) }} />}
-        mode='outlined'
-        activeOutlineColor='#657386'
+        activeUnderlineColor={bootstrapColors.secondary}
+        dense
       />
 
       <Button compact color={bootstrapColors.danger} style={{ marginTop: 20, marginBottom: 6 }} icon='delete' onPress={() => { console.log('Clicked') }} mode='contained' >DANGER: Delete Account</Button>
@@ -89,6 +89,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     marginBottom: 16,
+  },
+  textFields: {
+    marginTop: 6,
+    backgroundColor: bootstrapColors.light
   },
   divider: {
     marginTop: 40,

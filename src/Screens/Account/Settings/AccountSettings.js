@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     // borderStyle: 'solid',
   },
   divider: {
-    marginTop: 40,
+    marginTop: 20,
     marginBottom: 20,
     marginLeft: 16,
     marginRight: 16,

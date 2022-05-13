@@ -131,7 +131,7 @@ const ProfilePicture = ({ navigation }) => {
         frontView={
           <View>
             <TouchableOpacity onPress={() => setAvatarFlipped(!avatarFlipped)}>
-              {userAvatarUrl ? <Avatar.Image size={140} source={{ uri: `${userAvatarUrl}` }} /> : <Avatar.Icon size={140} icon='account' />}
+              {userAvatarUrl ? <Avatar.Image size={130} source={{ uri: `${userAvatarUrl}` }} /> : <Avatar.Icon size={130} icon='account' />}
             </TouchableOpacity>
           </View>
         }

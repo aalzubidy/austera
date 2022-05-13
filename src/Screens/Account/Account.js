@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
   },
   profileInfoText: {
     fontWeight: 'bold',
-    fontSize: 20
+    fontSize: 18,
+    marginTop: 3,
   }
 });

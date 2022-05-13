@@ -76,43 +76,48 @@ const UpdateAccountInformation = () => {
         placeholder='Username'
         value={username}
         onChangeText={text => setUsername(text)}
-        mode='outlined'
-        activeOutlineColor='#657386'
+        activeUnderlineColor={bootstrapColors.secondary}
+        // mode='outlined'
+        dense
       />
 
       <TextInput style={styles.textFields}
         placeholder='Email'
         value={email}
         onChangeText={text => setEmail(text)}
-        mode='outlined'
-        activeOutlineColor='#657386'
+        activeUnderlineColor={bootstrapColors.secondary}
+        // mode='outlined'
+        dense
       />
 
       <TextInput style={styles.textFields}
         placeholder='First name'
         value={firstName}
         onChangeText={text => setFirstName(text)}
-        mode='outlined'
-        activeOutlineColor='#657386'
+        activeUnderlineColor={bootstrapColors.secondary}
+        // mode='outlined'
+        dense
       />
 
       <TextInput style={styles.textFields}
         placeholder='Last name'
         value={lastName}
         onChangeText={text => setLastName(text)}
-        mode='outlined'
-        activeOutlineColor='#657386'
+        activeUnderlineColor={bootstrapColors.secondary}
+        // mode='outlined'
+        dense
       />
 
       <TextInput style={styles.textFields}
         placeholder='Mobile'
         value={mobile}
         onChangeText={text => setMobile(text)}
-        mode='outlined'
-        activeOutlineColor='#657386'
+        activeUnderlineColor={bootstrapColors.secondary}
+        // mode='outlined'
+        dense
       />
 
-      <Button compact color={bootstrapColors.primary} icon='pencil' onPress={updateUserInformation} disabled={loading}>Update Information</Button>
+      <Button compact color={bootstrapColors.primary} icon='content-save' onPress={updateUserInformation} disabled={loading}>Update Information</Button>
     </View>
   )
 };
@@ -136,6 +141,10 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     marginLeft: 16,
     marginRight: 16,
+  },
+  textFields: {
+    marginTop: 6,
+    backgroundColor: bootstrapColors.light
   },
   profileInfoSection: {
     paddingTop: 20,

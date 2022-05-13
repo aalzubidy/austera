@@ -67,8 +67,8 @@ const ChangePassword = () => {
         onChangeText={text => setOldPassword(text)}
         secureTextEntry={hideOldPassword}
         right={<TextInput.Icon name="eye" onPress={() => { setHideOldPassword(!hideOldPassword) }} />}
-        mode='outlined'
-        activeOutlineColor='#657386'
+        activeUnderlineColor={bootstrapColors.secondary}
+        dense
       />
 
       <TextInput style={styles.textFields}
@@ -77,8 +77,8 @@ const ChangePassword = () => {
         onChangeText={text => setNewPassword(text)}
         secureTextEntry={hideNewPassword}
         right={<TextInput.Icon name="eye" onPress={() => { setHideNewPassword(!hideNewPassword) }} />}
-        mode='outlined'
-        activeOutlineColor='#657386'
+        activeUnderlineColor={bootstrapColors.secondary}
+        dense
       />
 
       <Button compact color={bootstrapColors.primary} icon='content-save' onPress={() => { console.log('Clicked') }}>Change Password</Button>
@@ -99,6 +99,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     marginBottom: 16,
+  },
+  textFields: {
+    marginTop: 6,
+    backgroundColor: bootstrapColors.light
   },
   divider: {
     marginTop: 40,
