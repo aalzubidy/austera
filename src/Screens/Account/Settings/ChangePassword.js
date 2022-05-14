@@ -39,7 +39,8 @@ const ChangePassword = () => {
   // Get user's information from backend
   const getUserInformation = async () => {
     try {
-      const { data } = await API.profiles.getProfileInformation(token);
+      // const { data } = await API.profiles.getProfileInformation(token);
+      const data = {};
 
       if (data) {
         setUsername(data.username || '');

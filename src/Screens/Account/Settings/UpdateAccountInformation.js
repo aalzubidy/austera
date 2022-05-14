@@ -1,7 +1,7 @@
 import { View, Text, Image, Platform, ScrollView, TouchableOpacity, StyleSheet } from 'react-native';
 import MasterView from '../../../Shared/MasterView';
 import { Avatar, Button, TextInput, Divider } from 'react-native-paper';
-import { AuthContext } from '../../../Contexts/AuthContext';
+import { AuthContext, AuthActionsContext } from '../../../Contexts/AuthContext';
 import { AlertsContext } from '../../../Contexts/AlertsContext';
 import { useContext, useEffect, useState } from 'react/cjs/react.development';
 import FlipComponent from 'react-native-flip-component';
@@ -16,34 +16,31 @@ import { bootstrapColors } from '../../../Configs/colorConfigs';
 
 const UpdateAccountInformation = () => {
   // Settings
-  const { token } = useContext(AuthContext);
+  const { token, user } = useContext(AuthContext);
+  const { getUser } = useContext(AuthActionsContext);
   const { alertMsg } = useContext(AlertsContext);
   const [loading, setLoading] = useState(false);
 
   // Handle form input
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const [fullname, setFullname] = useState('');
   const [mobile, setMobile] = useState('');
 
   // Get user's information from backend
-  const getUserInformation = async () => {
+  const setAccountInformation = async () => {
     try {
       setLoading(true);
-      const { data } = await API.profiles.getProfileInformation(token);
-
-      if (data) {
-        setUsername(data.username || '');
-        setEmail(data.email || '');
-        setFirstName(data.firstname || '');
-        setLastName(data.lastname || '');
-        setMobile(data.mobile || '');
+      if (user) {
+        setUsername(user.username || '');
+        setEmail(user.email || '');
+        setFullname(user.fullname || '');
+        setMobile(user.mobile || '');
       }
       setLoading(false);
     } catch (error) {
       setLoading(false);
-      alertMsg('error', 'Could not get user information', null, 2000);
+      alertMsg('error', 'Could not set user account information', null, 2000);
     }
   }
 
@@ -51,22 +48,20 @@ const UpdateAccountInformation = () => {
   const updateUserInformation = async () => {
     try {
       alertMsg('info', 'Please wait, processing request', null, 1000);
-      setLoading(true);
-      const { data } = await API.profiles.updateProfileInformation({ username, email, firstName, lastName, mobile }, token);
+      const { data } = await API.account.updateInformation({ username, email, fullname, mobile }, token);
 
       if (data) {
+        await getUser();
         alertMsg('success', 'Information updated successfully', null, 2000);
       }
-      setLoading(false);
     } catch (error) {
-      setLoading(false);
       alertMsg('error', 'Could not get user information', error, 2000);
     }
   }
 
   useEffect(() => {
-    getUserInformation();
-  }, [token]);
+    setAccountInformation();
+  }, [user]);
 
   return (
     <View style={styles.updateAccountInfo}>
@@ -91,18 +86,9 @@ const UpdateAccountInformation = () => {
       />
 
       <TextInput style={styles.textFields}
-        placeholder='First name'
-        value={firstName}
-        onChangeText={text => setFirstName(text)}
-        activeUnderlineColor={bootstrapColors.secondary}
-        // mode='outlined'
-        dense
-      />
-
-      <TextInput style={styles.textFields}
-        placeholder='Last name'
-        value={lastName}
-        onChangeText={text => setLastName(text)}
+        placeholder='Full name'
+        value={fullname}
+        onChangeText={text => setFullname(text)}
         activeUnderlineColor={bootstrapColors.secondary}
         // mode='outlined'
         dense

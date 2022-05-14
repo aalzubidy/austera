@@ -1,214 +1,47 @@
 import CustomAxios from "./CustomAxios";
 
 const API = {
-  profiles: {
-    updateProfilePicture: async (body, token = '', config = {}) => {
+  account: {
+    updateAvatar: async (body, token = '', config = {}) => {
       try {
-        const response = await CustomAxios(token).patch('/users/avatar', body, config);
+        const response = await CustomAxios(token).patch('/account/avatar', body, config);
         return response;
       } catch (error) {
         console.log(error);
         throw error;
       }
     },
-    getProfilePicture: async (token) => {
+    getAvatar: async (token) => {
       try {
-        const response = await CustomAxios(token).get('/users/avatar');
+        const response = await CustomAxios(token).get('/account/avatar');
         return response;
       } catch (error) {
         console.log(error);
         throw error;
       }
     },
-    getProfileInformation: async (token) => {
+    updateInformation: async (body, token) => {
       try {
-        const response = await CustomAxios(token).get('/users/information');
-        return response;
-      } catch (error) {
-        console.log(error);
-        throw error;
-      }
-    },
-    updateProfileInformation: async (body, token) => {
-      try {
-        const response = await CustomAxios(token).patch('/users', body);
+        const response = await CustomAxios(token).patch('/account', body);
         return response;
       } catch (error) {
         console.log(error);
         throw error;
       }
     }
-  },
-  getAllCompanies: async (token = '') => {
-    try {
-      const response = await CustomAxios(token).get('/companies');
-      return response;
-    } catch (error) {
-      throw error;
-    }
-  },
-  getAllPositions: async (token) => {
-    try {
-      const response = await CustomAxios(token).get('/positions');
-      return response;
-    } catch (error) {
-      throw error;
-    }
-  },
-  posts: {
-    getAll: async (body, token = '') => {
-      try {
-        const response = await CustomAxios(token).post('/posts/all', body);
-        return response;
-      } catch (error) {
-        throw error;
-      }
-    },
-    getByCompany: async (body, token = '') => {
-      try {
-        const response = await CustomAxios(token).post('/posts/company', body);
-        return response;
-      } catch (error) {
-        throw error;
-      }
-    },
-    getByPosition: async (body, token = '') => {
-      try {
-        const response = await CustomAxios(token).post('/posts/position', body);
-        return response;
-      } catch (error) {
-        throw error;
-      }
-    },
-    getByCompanyPosition: async (body, token = '') => {
-      try {
-        const response = await CustomAxios(token).post('/posts/position/company', body);
-        return response;
-      } catch (error) {
-        throw error;
-      }
-    },
-    getById: async (postId, token = '') => {
-      try {
-        const response = await CustomAxios(token).get(`/posts/${postId}`);
-        return response;
-      } catch (error) {
-        throw error;
-      }
-    },
-    newPost: async (body, token = '') => {
-      try {
-        const response = await CustomAxios(token).post('/posts', body);
-        return response;
-      } catch (error) {
-        throw error;
-      }
-    },
-    updateById: async (body, token = '') => {
-      try {
-        const response = await CustomAxios(token).put('/posts', body);
-        return response;
-      } catch (error) {
-        throw error;
-      }
-    },
-    deleteById: async (postId, body, token = '') => {
-      try {
-        const response = await CustomAxios(token).delete(`/posts/${postId}`, body);
-        return response;
-      } catch (error) {
-        throw error;
-      }
-    },
-    updateAttachmentsByPostId: async (postId, postPin, body, token = '') => {
-      try {
-        const response = await CustomAxios(token).put(`/posts/${postId}/${postPin}/attachments`, body);
-        return response;
-      } catch (error) {
-        throw error;
-      }
-    }
-  },
-  comments: {
-    getAllByPost: async (body, token = '') => {
-      try {
-        const response = await CustomAxios(token).post('/comments/post', body);
-        return response;
-      } catch (error) {
-        throw error;
-      }
-    },
-    getSolutionsByPost: async (body, token = '') => {
-      try {
-        const response = await CustomAxios(token).post('/comments/post/solutions', body);
-        return response;
-      } catch (error) {
-        throw error;
-      }
-    },
-    deleteById: async (commentId, token = '') => {
-      try {
-        const response = await CustomAxios(token).delete(`/comments/${commentId}`);
-        return response;
-      } catch (error) {
-        throw error;
-      }
-    },
-    newComment: async (body, token = '') => {
-      try {
-        const response = await CustomAxios(token).post('/comments', body);
-        return response;
-      } catch (error) {
-        throw error;
-      }
-    },
-    getById: async (commentId, token = '') => {
-      try {
-        const response = await CustomAxios(token).get(`/comments/${commentId}`);
-        return response;
-      } catch (error) {
-        throw error;
-      }
-    },
-    updateById: async (body, token = '') => {
-      try {
-        const response = await CustomAxios(token).put('/comments', body);
-        return response;
-      } catch (error) {
-        throw error;
-      }
-    },
   },
   system: {
-    getStatsPositions: async (token = '') => {
+    getBackendSystemVersion: async (token = '') => {
       try {
-        const response = await CustomAxios(token).get('/stats/positions');
+        const response = await CustomAxios(token).get('/system/version');
         return response;
       } catch (error) {
         throw error;
       }
     },
-    getStatsCompanies: async (token = '') => {
+    pingBackendSystem: async (token = '') => {
       try {
-        const response = await CustomAxios(token).get('/stats/companies');
-        return response;
-      } catch (error) {
-        throw error;
-      }
-    }
-  },
-  files: {
-    getByPostId: async (postId, token = '') => {
-      try {
-        const response = await CustomAxios(token).get(`/files/post/${postId}`);
-        return response;
-      } catch (error) {
-        throw error;
-      }
-    },
-    deleteByPostId: async (postId, body, token = '') => {
-      try {
-        const response = await CustomAxios(token).delete(`/files/post/${postId}`, body);
+        const response = await CustomAxios(token).get('/system/ping');
         return response;
       } catch (error) {
         throw error;

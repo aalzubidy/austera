@@ -23,8 +23,8 @@ export function AuthProvider(props) {
   const renewTokenUrl = '/renewTokenByCookie';
   const loginUrl = '/login';
   const logoutUrl = '/logoutByCookie';
-  const registerUserUrl = '/users';
-  const getUserUrl = '/getTokenUser';
+  const registerUserUrl = '/register';
+  const getUserUrl = '/account';
 
   // Timeout configurations
   const tokenTimeOutMS = 9 * 60 * 1000;
@@ -44,8 +44,8 @@ export function AuthProvider(props) {
 
   // Set in memory token
   const setAccessToken = (accessToken) => {
-    getUser(accessToken);
     setToken(accessToken);
+    getUser(accessToken);
     scheduleRenewToken();
   };
 
@@ -150,7 +150,7 @@ export function AuthProvider(props) {
   };
 
   // Get user information
-  const getUser = async (accessToken) => {
+  const getUser = async (accessToken = token) => {
     try {
       const { data } = await axios.get(baseUrl + getUserUrl, { headers: { token: accessToken } });
       if (data) {

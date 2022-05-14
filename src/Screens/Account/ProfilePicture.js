@@ -72,7 +72,7 @@ const ProfilePicture = ({ navigation }) => {
         name: uri.split("/").pop()
       });
 
-      const { data } = await API.profiles.updateProfilePicture(formData, token, { headers: { 'Content-Type': 'multipart/form-data' } });
+      const { data } = await API.account.updateAvatar(formData, token, { headers: { 'Content-Type': 'multipart/form-data' } });
 
       if (data) {
         getUserAvatar();
@@ -107,10 +107,10 @@ const ProfilePicture = ({ navigation }) => {
   // Get user's profile image url avatar_url from backend
   const getUserAvatar = async () => {
     try {
-      const { data } = await API.profiles.getProfilePicture(token);
+      const { data } = await API.account.getAvatar(token);
 
-      if (data) {
-        checkImageURL(`${AUSTERA_BASE_URL}${data}`)
+      if (data?.avatarUrl) {
+        checkImageURL(`${AUSTERA_BASE_URL}${data.avatarUrl}`)
       }
     } catch (error) {
       console.log('no profile image');
